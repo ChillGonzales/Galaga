@@ -5,23 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace x_platform.GameObjects
 {
     public class Player : Character
     {
         public bool Firing { get; set; }
+        private const double fireRate_ = 50;
+        private Timer projectileTimer_ = new Timer(fireRate_);
 
         public Player(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos, projectileTexture)
         {
             this.movementSpeed_ = 10f;
+            projectileTimer_.Elapsed += ProjectileTimer__Elapsed;
+        }
+
+        private void ProjectileTimer__Elapsed(object sender, ElapsedEventArgs e)
+        {
+            projectileTimer_.Stop();
+            SpawnProjectile();
         }
 
         protected override void UpdateLogic(GameTime gameTime)
         {
             if (Firing)
             {
-                SpawnProjectile();
+                projectileTimer_.Start();
             }
             if (this.projectiles_.Capacity > 0)
             {
@@ -31,7 +41,7 @@ namespace x_platform.GameObjects
                 }
             }
         }
-
+        
         public void MoveObject(MovementDirections direction)
         {
             switch (direction)

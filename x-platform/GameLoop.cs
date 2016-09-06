@@ -80,6 +80,7 @@ namespace x_platform
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Space)) { player1.Firing = true; }
+            if (Keyboard.GetState().IsKeyUp(Keys.Space)) { player1.Firing = false; }
             if (Keyboard.GetState().IsKeyDown(Keys.W)) { player1.MoveObject(MovementDirections.Up); }
             if (Keyboard.GetState().IsKeyDown(Keys.A)) { player1.MoveObject(MovementDirections.Left); }
             if (Keyboard.GetState().IsKeyDown(Keys.S)) { player1.MoveObject(MovementDirections.Down); }

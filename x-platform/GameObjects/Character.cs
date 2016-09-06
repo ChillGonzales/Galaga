@@ -22,7 +22,7 @@ namespace x_platform.GameObjects
 
         protected virtual void SpawnProjectile()
         {
-            var proj = new Projectile(this.projectileTexture_, this.position_);
+            var proj = new Projectile(this.projectileTexture_, new Vector2(this.position_.X + (this.texture_.Width / 2), this.position_.Y));
             projectiles_.Add(proj);
         }
 
