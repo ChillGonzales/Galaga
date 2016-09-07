@@ -20,9 +20,9 @@ namespace x_platform.GameObjects
             projectiles_ = new List<Projectile>();
         }
 
-        protected virtual void SpawnProjectile()
+        protected virtual void SpawnProjectile(float flySpeed)
         {
-            var proj = new Projectile(this.projectileTexture_, new Vector2(this.position_.X + (this.texture_.Width / 2), this.position_.Y));
+            var proj = new Projectile(this.projectileTexture_, new Vector2(this.position_.X + (this.texture_.Width / 2), this.position_.Y), flySpeed);
             projectiles_.Add(proj);
         }
 

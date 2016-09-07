@@ -12,31 +12,41 @@ namespace x_platform.GameObjects
     public class Player : Character
     {
         public bool Firing { get; set; }
-        private const double fireRate_ = 50;
-        private Timer projectileTimer_ = new Timer(fireRate_);
+        private const float fireRate_ = 50, projectileSpeed_ = 15;
+        private int projectilesToAdd_ = 0;
+        private Timer projectileTimer_;
+        private bool projectileTimerElapsed_;
 
         public Player(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos, projectileTexture)
         {
             this.movementSpeed_ = 10f;
-            projectileTimer_.Elapsed += ProjectileTimer__Elapsed;
+            projectileTimer_ = new Timer(fireRate_);
+            projectileTimer_.Elapsed += ProjectileTimer_Elapsed;
         }
 
-        private void ProjectileTimer__Elapsed(object sender, ElapsedEventArgs e)
+        private void ProjectileTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            projectileTimer_.Stop();
-            SpawnProjectile();
+            projectileTimerElapsed_ = true;
         }
 
         protected override void UpdateLogic(GameTime gameTime)
         {
-            if (Firing)
+            if (Firing && projectileTimerElapsed_) 
             {
-                projectileTimer_.Start();
+                projectilesToAdd_ += 1;
+                projectileTimerElapsed_ = false;
+            }
+            else if(Firing && !projectileTimerElapsed_) { projectileTimer_.Start(); }
+            for (int i = 0; i < projectilesToAdd_; i++)
+            {
+                SpawnProjectile(projectileSpeed_);
+                projectilesToAdd_ -= 1;
             }
             if (this.projectiles_.Capacity > 0)
             {
                 foreach(var proj in this.projectiles_)
                 {
+                    if (proj.OutOfBounds) { projectiles_.Remove(proj); return; }
                     proj.Update(gameTime);
                 }
             }

@@ -11,12 +11,13 @@ namespace x_platform
     /// </summary>
     public class GameLoop : Game
     {
-        GraphicsDeviceManager graphics;
+        static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Dictionary<TextureNames, Texture2D> textureDict;
         private enum TextureNames { MainCharacter, Enemy, Projectile }
         private List<Entity> activeObjects;
         private Player player1;
+        public static Vector2 GraphicsDimensions { get { return new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight); } }
 
         public GameLoop()
         {
