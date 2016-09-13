@@ -17,9 +17,8 @@ namespace x_platform.GameObjects
         public Vector2 Position { get { return position_; } }
         public Texture2D Texture { get { return texture_; } }
 
-        protected Entity(Texture2D entityTexture, Vector2 startPos)
+        protected Entity(Vector2 startPos)
         {
-            this.texture_ = entityTexture;
             this.position_ = startPos;
         }
 

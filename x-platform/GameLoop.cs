@@ -13,8 +13,8 @@ namespace x_platform
     {
         static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Dictionary<TextureNames, Texture2D> textureDict;
-        private enum TextureNames { MainCharacter, Enemy, Projectile }
+        public static Dictionary<TextureNames, Texture2D> textureDict;
+        public enum TextureNames { MainCharacter, Enemy, Projectile }
         private List<Entity> activeObjects;
         private Player player1;
         public static Vector2 GraphicsDimensions { get { return new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight); } }
