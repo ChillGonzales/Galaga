@@ -15,7 +15,7 @@ namespace x_platform
         private Player[] waveUnits_;
         private Texture2D enemyTexture_, projectileTexture_;
 
-        public Wave(int numEnemies)
+        public Wave(int numEnemies, Vector2 startPos) : base(startPos)
         {
             waveSize_ = numEnemies;
             enemyTexture_ = x_platform.GameLoop.textureDict[GameLoop.TextureNames.Enemy];
@@ -23,6 +23,7 @@ namespace x_platform
         }
         public void Start()
         {
+            waveUnits_ = new Player[waveSize_];
             for (int i = 0; i < waveSize_; i++)
             {
                 var startPos = new Vector2((float)i * 200, 200);
@@ -31,11 +32,23 @@ namespace x_platform
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            foreach (var enem in waveUnits_)
+            {
+                enem.Draw(spriteBatch);
+            }
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+        }
+        protected override void UpdateLogic(GameTime gameTime)
+        {
+            if (waveUnits_ == null)
+                this.Start();
+            foreach (var enem in waveUnits_)
+            {
+                enem.Update(gameTime);
+            }
         }
 
     }

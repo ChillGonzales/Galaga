@@ -17,14 +17,15 @@ namespace x_platform
         public enum TextureNames { MainCharacter, Enemy, Projectile }
         private List<Entity> activeObjects;
         private Player player1;
+        public const int SCREEN_HEIGHT = 1080, SCREEN_WIDTH = 1920;
         public static Vector2 GraphicsDimensions { get { return new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight); } }
 
         public GameLoop()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
         }
@@ -53,12 +54,14 @@ namespace x_platform
             textureDict = new Dictionary<TextureNames, Texture2D>();
             activeObjects = new List<Entity>();
           
-            textureDict.Add(TextureNames.MainCharacter, this.Content.Load<Texture2D>("playerChar/spaceshipMain"));
+            textureDict.Add(TextureNames.MainCharacter, this.Content.Load<Texture2D>("playerChar/spaceshipMain")); 
             textureDict.Add(TextureNames.Enemy, this.Content.Load<Texture2D>("enemyChar/enemyMain"));
             textureDict.Add(TextureNames.Projectile, this.Content.Load<Texture2D>("enemyChar/bulletEnemy"));
 
-            player1 = new Player(textureDict[TextureNames.MainCharacter], new Vector2(250, 250), textureDict[TextureNames.Projectile]);
+            player1 = new Player(textureDict[TextureNames.MainCharacter], new Vector2(SCREEN_HEIGHT - 50, SCREEN_WIDTH / 2), textureDict[TextureNames.Projectile]);
             activeObjects.Add(player1);
+            Wave wave1 = new Wave(10, new Vector2(0, 0));
+            activeObjects.Add(wave1);
         }
 
         /// <summary>

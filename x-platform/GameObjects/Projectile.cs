@@ -15,9 +15,10 @@ namespace x_platform.GameObjects
         private float flySpeed_;
         public bool OutOfBounds { get; private set; }
 
-        public Projectile(Texture2D texture, Vector2 startPos, float flySpeed) : base(texture, startPos)
+        public Projectile(Texture2D texture, Vector2 startPos, float flySpeed) : base(startPos)
         {
             flySpeed_ = flySpeed;
+            texture_ = texture;
         }
 
         protected override void UpdateLogic(GameTime gameTime)

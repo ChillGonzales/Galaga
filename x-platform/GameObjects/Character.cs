@@ -14,9 +14,10 @@ namespace x_platform.GameObjects
         protected List<Projectile> projectiles_;
         protected float movementSpeed_ = 5f;
 
-        protected Character(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos)
+        protected Character(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(startPos)
         {
             this.projectileTexture_ = projectileTexture;
+            this.texture_ = texture;
             projectiles_ = new List<Projectile>();
         }
 
