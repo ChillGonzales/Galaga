@@ -12,22 +12,22 @@ namespace x_platform
     public class Wave : Entity
     {
         private int waveSize_;
-        private Player[] waveUnits_;
+        private Enemy[] waveUnits_;
         private Texture2D enemyTexture_, projectileTexture_;
 
         public Wave(int numEnemies, Vector2 startPos) : base(startPos)
         {
             waveSize_ = numEnemies;
-            enemyTexture_ = x_platform.GameLoop.textureDict[GameLoop.TextureNames.Enemy];
-            projectileTexture_ = x_platform.GameLoop.textureDict[GameLoop.TextureNames.Projectile];
+            enemyTexture_ = GameLoop.textureDict[GameLoop.TextureNames.Enemy];
+            projectileTexture_ = GameLoop.textureDict[GameLoop.TextureNames.Projectile];
         }
         public void Start()
         {
-            waveUnits_ = new Player[waveSize_];
+            waveUnits_ = new Enemy[waveSize_];
             for (int i = 0; i < waveSize_; i++)
             {
                 var startPos = new Vector2((float)i * 200, 200);
-                waveUnits_[i] = new Player(enemyTexture_, startPos, projectileTexture_);
+                waveUnits_[i] = new Enemy(enemyTexture_, startPos, projectileTexture_);
             }
         }
         public override void Draw(SpriteBatch spriteBatch)

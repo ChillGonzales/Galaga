@@ -10,13 +10,13 @@ namespace x_platform.GameObjects
 {
     public class Enemy : Character
     {
-        protected Enemy(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos, projectileTexture)
+        public Enemy(Texture2D texture, Vector2 startPos, Texture2D projectileTexture, GameLoop game) : base(texture, startPos, projectileTexture)
         {
+
         }
 
         protected override void UpdateLogic(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
     }
 }

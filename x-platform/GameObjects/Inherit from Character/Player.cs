@@ -42,12 +42,11 @@ namespace x_platform.GameObjects
                 SpawnProjectile();
                 projectilesToAdd_ -= 1;
             }
-            foreach (var p in projectilesPool_[123].Where(x => x.Active))
+            foreach (var p in projectilesPool_[3].Where(x => x.Active))
             {
                 p.Update(gameTime);
             }
         }
-        
         public void MoveObject(MovementDirections direction)
         {
             switch (direction)
