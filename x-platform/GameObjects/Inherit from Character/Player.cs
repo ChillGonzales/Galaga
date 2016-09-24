@@ -12,7 +12,7 @@ namespace x_platform.GameObjects
     public class Player : Character
     {
         public bool Firing { get; set; }
-        private const float fireRate_ = 50, projectileSpeed_ = 15;
+        private const float FIRE_RATE = 50, PROJECTILE_SPEED = 15;
         private int projectilesToAdd_ = 0;
         private Timer projectileTimer_;
         private bool projectileTimerElapsed_;
@@ -20,7 +20,7 @@ namespace x_platform.GameObjects
         public Player(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos, projectileTexture)
         {
             this.movementSpeed_ = 10f;
-            projectileTimer_ = new Timer(fireRate_);
+            projectileTimer_ = new Timer(FIRE_RATE);
             projectileTimer_.Elapsed += ProjectileTimer_Elapsed;
         }
 
@@ -39,16 +39,12 @@ namespace x_platform.GameObjects
             else if(Firing && !projectileTimerElapsed_) { projectileTimer_.Start(); }
             for (int i = 0; i < projectilesToAdd_; i++)
             {
-                SpawnProjectile(projectileSpeed_);
+                SpawnProjectile();
                 projectilesToAdd_ -= 1;
             }
-            if (this.projectiles_.Capacity > 0)
+            foreach (var p in projectilesPool_[123].Where(x => x.Active))
             {
-                foreach(var proj in this.projectiles_)
-                {
-                    if (proj.OutOfBounds) { projectiles_.Remove(proj); return; }
-                    proj.Update(gameTime);
-                }
+                p.Update(gameTime);
             }
         }
         

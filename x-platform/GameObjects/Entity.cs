@@ -16,6 +16,7 @@ namespace x_platform.GameObjects
         protected const double updateFrequency_ = 1/60f; // all inherited objects will update at 60 fps
         public Vector2 Position { get { return position_; } }
         public Texture2D Texture { get { return texture_; } }
+        public int objectID { get; private set; }
         public Rectangle CollisionRectangle { get { return new Rectangle((int)position_.X, (int)position_.Y, texture_.Width, texture_.Height); } }
 
         protected Entity(Vector2 startPos)
