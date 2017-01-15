@@ -12,10 +12,12 @@ namespace x_platform.GameObjects
     {
         public Enemy(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos, projectileTexture)
         {
-
         }
 
         protected override void UpdateLogic(GameTime gameTime)
+        {
+        }
+        protected override void Destroy()
         {
         }
     }

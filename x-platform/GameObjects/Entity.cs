@@ -18,6 +18,8 @@ namespace x_platform.GameObjects
         public Texture2D Texture { get { return texture_; } }
         public int objectID { get; protected set; }
         public Rectangle CollisionRectangle { get { return new Rectangle((int)position_.X, (int)position_.Y, texture_.Width, texture_.Height); } }
+        protected int health;
+        protected int armor;
 
         protected Entity(Vector2 startPos)
         {
@@ -29,11 +31,12 @@ namespace x_platform.GameObjects
             this.position_ += displacement;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, List<Entity> otherEntities)
         {
             if (CheckUpdateTime(gameTime))
             {
                 UpdateLogic(gameTime);
+                CheckCollisions(otherEntities);
             }
         }
         
@@ -47,7 +50,17 @@ namespace x_platform.GameObjects
             }
             else { return false; }
         }
-        protected abstract void UpdateLogic(GameTime gameTime);
+        protected abstract void UpdateLogic(GameTime gameTime, List<Entity> otherEntities = null);
+        protected abstract void CheckCollisions(List<Entity> otherEntities);
+        protected abstract void Destroy();
+        protected virtual void ReactToHit(int damage)
+        {
+            health -= (damage - armor);
+            if (health <= 0)
+            {
+                this.Destroy();
+            }
+        }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

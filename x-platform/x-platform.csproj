@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collision.cs" />
     <Compile Include="GameObjects\Inherit from Entity\Character.cs" />
     <Compile Include="GameObjects\Inherit from Character\Enemy.cs" />
     <Compile Include="GameObjects\Entity.cs" />

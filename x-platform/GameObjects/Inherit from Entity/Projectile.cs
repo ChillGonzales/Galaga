@@ -23,13 +23,23 @@ namespace x_platform.GameObjects
             this.ownerInstance_= owner;
             this.setActive(false);
         }
-        protected override void UpdateLogic(GameTime gameTime)
+        protected override void UpdateLogic(GameTime gameTime, List<Entity> otherEntities = null)
         {
             if (Active == true) { 
                 this.Move(new Vector2(0f, -flySpeed_));
                 if (this.position_.X < 0 || this.position_.X > GameLoop.GraphicsDimensions.X + 30 || this.position_.Y < 0 || this.position_.Y > GameLoop.GraphicsDimensions.Y + 30)
                 {
                     this.setActive(false);
+                }
+            }
+        }
+        protected override void CheckCollisions(List<Entity> otherEntities)
+        {
+            foreach(var ent in otherEntities)
+            {
+                if (this.CollisionRectangle.Intersects(ent.CollisionRectangle))
+                {
+                    ent.
                 }
             }
         }

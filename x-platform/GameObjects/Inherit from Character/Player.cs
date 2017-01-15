@@ -29,7 +29,7 @@ namespace x_platform.GameObjects
             projectileTimerElapsed_ = true;
         }
 
-        protected override void UpdateLogic(GameTime gameTime)
+        protected override void UpdateLogic(GameTime gameTime, List<Entity> otherEntities)
         {
             if (Firing && projectileTimerElapsed_) 
             {
@@ -44,7 +44,7 @@ namespace x_platform.GameObjects
             }
             foreach (var p in projectilesPool_[3].Where(x => x.Active))
             {
-                p.Update(gameTime);
+                p.Update(gameTime, otherEntities);
             }
         }
         public void MoveObject(MovementDirections direction)

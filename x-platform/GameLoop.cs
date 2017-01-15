@@ -93,9 +93,8 @@ namespace x_platform
 
             foreach (var obj in activeObjects)
             {
-                obj.Update(gameTime);
+                obj.Update(gameTime, activeObjects);
             }
-
             base.Update(gameTime);
         }
 
