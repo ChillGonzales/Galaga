@@ -19,14 +19,14 @@ namespace x_platform.GameObjects
         protected float movementSpeed_ = 5f;
         protected Vector2 ProjectilePosition { get { return new Vector2(this.position_.X + this.texture_.Width / 2, this.position_.Y); } }
 
-        protected Character(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(startPos)
+        protected Character(Texture2D texture, Vector2 startPos, Texture2D projectileTexture, List<Entity> otherEntities) : base(startPos, otherEntities)
         {
             this.projectileTexture_ = projectileTexture;
             this.texture_ = texture;
             projectilesPool_.Add(3, new Queue<Projectile>());
             for (var i = 0; i < PROJECTILE_MAX; i++)
             {
-                projectilesPool_[3].Enqueue(new Projectile(projectileTexture_, startPos, 15f, this));
+                projectilesPool_[3].Enqueue(new Projectile(projectileTexture_, startPos, 15f, this, otherEntities_));
             }
         }
         protected virtual void SpawnProjectile()

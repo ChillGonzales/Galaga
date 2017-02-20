@@ -14,21 +14,31 @@ namespace x_platform
         private int waveSize_;
         private Enemy[] waveUnits_;
         private Texture2D enemyTexture_, projectileTexture_;
+        public List<Entity> ToEnemyArray { get { return waveUnits_.ToList<Entity>(); } }
 
-        public Wave(int numEnemies, Vector2 startPos) : base(startPos)
+        public Wave(int numEnemies, Vector2 startPos, List<Entity> otherEntities) : base(startPos, otherEntities)
         {
             waveSize_ = numEnemies;
             enemyTexture_ = GameLoop.textureDict[GameLoop.TextureNames.Enemy];
             projectileTexture_ = GameLoop.textureDict[GameLoop.TextureNames.Projectile];
-        }
-        public void Start()
-        {
             waveUnits_ = new Enemy[waveSize_];
             for (int i = 0; i < waveSize_; i++)
             {
-                var startPos = new Vector2((float)i * 200, 200);
-                waveUnits_[i] = new Enemy(enemyTexture_, startPos, projectileTexture_);
+                var pos = new Vector2((float)i * 200, 200);
+                waveUnits_[i] = new Enemy(enemyTexture_, pos, projectileTexture_, otherEntities);
             }
+        }
+        public void Start()
+        {
+            //waveUnits_ = new Enemy[waveSize_];
+            //for (int i = 0; i < waveSize_; i++)
+            //{
+            //    var startPos = new Vector2((float)i * 200, 200);
+            //    waveUnits_[i] = new Enemy(enemyTexture_, startPos, projectileTexture_, otherEntities_);
+            //}
+        }
+        public void RemoveActiveEnemy(Enemy enemy)
+        {
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -51,5 +61,12 @@ namespace x_platform
             }
         }
 
+        protected override void CheckCollisions()
+        {
+        }
+
+        protected override void Destroy()
+        {
+        }
     }
 }

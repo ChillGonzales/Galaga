@@ -12,16 +12,17 @@ namespace x_platform.GameObjects
     public class Player : Character
     {
         public bool Firing { get; set; }
-        private const float FIRE_RATE = 50, PROJECTILE_SPEED = 15;
+        private const float FIRE_RATE = 70, PROJECTILE_SPEED = 5;
         private int projectilesToAdd_ = 0;
         private Timer projectileTimer_;
         private bool projectileTimerElapsed_;
 
-        public Player(Texture2D texture, Vector2 startPos, Texture2D projectileTexture) : base(texture, startPos, projectileTexture)
+        public Player(Texture2D texture, Vector2 startPos, Texture2D projectileTexture, List<Entity> otherEntities) : base(texture, startPos, projectileTexture, otherEntities)
         {
             this.movementSpeed_ = 10f;
             projectileTimer_ = new Timer(FIRE_RATE);
             projectileTimer_.Elapsed += ProjectileTimer_Elapsed;
+            this.objectID = 1;
         }
 
         private void ProjectileTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -29,7 +30,7 @@ namespace x_platform.GameObjects
             projectileTimerElapsed_ = true;
         }
 
-        protected override void UpdateLogic(GameTime gameTime, List<Entity> otherEntities)
+        protected override void UpdateLogic(GameTime gameTime)
         {
             if (Firing && projectileTimerElapsed_) 
             {
@@ -44,7 +45,7 @@ namespace x_platform.GameObjects
             }
             foreach (var p in projectilesPool_[3].Where(x => x.Active))
             {
-                p.Update(gameTime, otherEntities);
+                p.Update(gameTime);
             }
         }
         public void MoveObject(MovementDirections direction)
@@ -64,6 +65,14 @@ namespace x_platform.GameObjects
                     this.Move(new Vector2(0, -movementSpeed_));
                     return;
             }
+        }
+
+        protected override void CheckCollisions()
+        {
+        }
+
+        protected override void Destroy()
+        {
         }
     }
 

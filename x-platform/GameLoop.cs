@@ -59,10 +59,10 @@ namespace x_platform
             textureDict.Add(TextureNames.Enemy, this.Content.Load<Texture2D>("enemyChar/enemyMain"));
             textureDict.Add(TextureNames.Projectile, this.Content.Load<Texture2D>("enemyChar/bulletEnemy"));
 
-            player1 = new Player(textureDict[TextureNames.MainCharacter], new Vector2(SCREEN_HEIGHT - 50, SCREEN_WIDTH / 2), textureDict[TextureNames.Projectile]);
+            player1 = new Player(textureDict[TextureNames.MainCharacter], new Vector2(SCREEN_HEIGHT - 50, SCREEN_WIDTH / 2), textureDict[TextureNames.Projectile], activeObjects);
             activeObjects.Add(player1);
-            Wave wave1 = new Wave(10, new Vector2(0, 0));
-            activeObjects.Add(wave1);
+            Wave wave1 = new Wave(10, new Vector2(0, 0), activeObjects);
+            activeObjects.AddRange(wave1.ToEnemyArray);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace x_platform
 
             foreach (var obj in activeObjects)
             {
-                obj.Update(gameTime, activeObjects);
+                obj.Update(gameTime);
             }
             base.Update(gameTime);
         }
